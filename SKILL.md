@@ -68,7 +68,7 @@ For each slide, define:
 - **data-title**: headline in plain text for nav hover preview
 - **Kicker text**: "NN — Section label" inside the slide
 - **Headline**: ≤ 8 words, punchy, can be CN/EN/mixed
-- **Accent word**: one word or phrase in `<em>` → renders red. ONE per slide, skip if nothing deserves it.
+- **Accent word**: one word or phrase in `<em>` → renders in accent blue (`#1666F0`). ONE per slide, skip if nothing deserves it.
 - **Body copy**: Inter, 14–15px, ≤ 60 words per slide in speaker mode, ≤ 100 in reading mode
 
 ### Step 4 — Generate HTML
@@ -324,18 +324,25 @@ When the user provides image/video files, output a folder instead of a single `.
 These components are pre-built in `references/template.html`. Use them inside any slide type.
 
 ### Color mark highlights
+Pudding.cool-inspired palette — three semantic colors:
+| Class | Color | Hex |
+|---|---|---|
+| `c-red` | Orange | `#D05030` |
+| `c-blue` | Purple | `#7058C0` |
+| `c-yellow` / `c-green` | Yellow-green | `#8CA028` |
+
 ```html
-<!-- Background fill variants -->
+<!-- Background fill variants (rounded pill) -->
 <mark class="c-red">term A</mark>
 <mark class="c-blue">term B</mark>
 <mark class="c-yellow">term C</mark>
-<mark class="c-green">term D</mark>
 
-<!-- Underline-only (more Nothing-style, no fill) -->
+<!-- Underline-only (no fill) -->
 <mark class="u-red">term</mark>
+<mark class="u-blue">term</mark>
 <mark class="u-yellow">term</mark>
 ```
-Use to categorize terms, distinguish concepts, or highlight data categories. ONE color = ONE category — don't mix colors arbitrarily.
+ONE color = ONE category. Don't mix colors arbitrarily.
 
 ### Color legend strip
 ```html
@@ -408,8 +415,9 @@ Full rules in `references/design-rules.md`. Critical points:
 - **Logo**: PicNic, 22px, dot-matrix — brand mark only, never for headlines or body
 - **Headings**: PPEditorialNew weight 200 (light) for large display; 400 or 700 for smaller headings
 - **Body text**: Inter, 14–15px, line-height 1.7
-- **Accent**: `#d71921` (Nothing red) — identical in dark AND light mode
-- **Background**: `#0d0d0d` dark / `#f5f4f0` light, dot-matrix pattern on `body` only — never on `.slide`
+- **Accent**: `#1666F0` (blue) — identical in dark AND light mode; applied to logo tick, kicker bar, nav dot, `<em>` in h1, annotation dots
+- **Chinese font**: `'PingFang SC'` is in all font stacks as fallback — Chinese content renders natively, no extra setup
+- **Background**: `#0d0d0d` dark / `#f5f4f0` light, dot-matrix pattern on `body` AND `.slide` (slides are opaque to prevent crossfade bleed)
 - **3 hierarchy layers max**: Primary (huge type) → Secondary (medium) → Tertiary (metadata/kicker)
 - **One accent moment per slide**: the `<em>` word, an oversized stat, a grid num — one, never two
 
@@ -427,4 +435,5 @@ Full rules in `references/design-rules.md`. Critical points:
 
 - Content can be Chinese, English, or mixed — match the user's outline language
 - Kicker labels prefer "NN — Label" format (EN preferred for kickers even in CN decks)
-- Chinese content in `<h1>`, `<h2>`, bullet points, body text — all fine as-is
+- Chinese content in `<h1>`, `<h2>`, bullet points, body text — renders in PingFang SC automatically
+- Mixed CN/EN in the same slide is fine — the font stack handles it

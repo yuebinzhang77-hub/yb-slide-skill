@@ -35,7 +35,7 @@ Full reference for the design system used in yb-slide presentations. Condensed f
 --fg-dim:      rgba(255,255,255,0.55);
 --fg-faint:    rgba(255,255,255,0.28);
 --line:        rgba(255,255,255,0.08);
---accent:      #d71921;   /* Nothing red — same in both modes */
+--accent:      #1666F0;   /* Nothing red — same in both modes */
 --surface:     #1c1c1c;
 
 /* Light mode */
@@ -45,11 +45,11 @@ Full reference for the design system used in yb-slide presentations. Condensed f
 --fg-dim:      rgba(13,13,13,0.58);
 --fg-faint:    rgba(13,13,13,0.30);
 --line:        rgba(13,13,13,0.10);
---accent:      #d71921;   /* identical */
+--accent:      #1666F0;   /* identical */
 --surface:     #ffffff;
 ```
 
-**Accent (#d71921) usage:**
+**Accent (#1666F0) usage:**
 - `<em>` inside h1 → renders accent color
 - `<mark>` inside blockquote → renders accent color
 - `.num` cells → italic accent text (No. 1, No. 2…)

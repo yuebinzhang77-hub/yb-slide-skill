@@ -65,7 +65,7 @@
     --fg-dim: rgba(255, 255, 255, 0.55);
     --fg-faint: rgba(255, 255, 255, 0.28);
     --line: rgba(255, 255, 255, 0.08);
-    --accent: #d71921;
+    --accent: #1666F0;
     --surface: #1c1c1c;
     --surface-hover: rgba(255, 255, 255, 0.04);
   }
@@ -77,7 +77,7 @@
     --fg-dim: rgba(13, 13, 13, 0.58);
     --fg-faint: rgba(13, 13, 13, 0.30);
     --line: rgba(13, 13, 13, 0.10);
-    --accent: #d71921;
+    --accent: #1666F0;
     --surface: #ffffff;
     --surface-hover: rgba(0, 0, 0, 0.03);
   }
@@ -90,7 +90,7 @@
     background-image: radial-gradient(circle, var(--dot) 1px, transparent 1px);
     background-size: 20px 20px;
     color: var(--fg);
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Inter', 'PingFang SC', 'PingFang TC', system-ui, sans-serif;
     transition: background-color 500ms var(--ease-in-out), color 500ms var(--ease-in-out);
     -webkit-font-smoothing: antialiased;
   }
@@ -149,6 +149,7 @@
     width: 200px;
     background: var(--surface);
     border: 1px solid var(--line);
+    border-radius: 12px;
     padding: 14px 16px 16px;
     pointer-events: none;
     opacity: 0;
@@ -160,7 +161,7 @@
     transform: translateX(0);
   }
   .nav-preview .p-num {
-    font-family: 'PPEditorialNew', Georgia, serif;
+    font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif;
     font-style: italic;
     font-size: 11px;
     color: var(--accent);
@@ -168,7 +169,7 @@
     margin-bottom: 6px;
   }
   .nav-preview .p-kicker {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'PingFang SC', 'PingFang TC', sans-serif;
     font-size: 10px;
     font-weight: 500;
     text-transform: uppercase;
@@ -177,7 +178,7 @@
     margin-bottom: 4px;
   }
   .nav-preview .p-title {
-    font-family: 'PPEditorialNew', Georgia, serif;
+    font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif;
     font-size: 15px;
     font-weight: 200;
     line-height: 1.25;
@@ -249,7 +250,7 @@
     right: 48px;
     bottom: 30px;
     z-index: 50;
-    font-family: 'PPEditorialNew', Georgia, serif;
+    font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif;
     font-size: 11px;
     font-style: italic;
     letter-spacing: 0.06em;
@@ -266,12 +267,16 @@
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--fg-faint);
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'PingFang SC', 'PingFang TC', sans-serif;
   }
 
   /* ---------- slides ---------- */
   .deck { position: relative; height: 100%; width: 100%; }
 
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(32px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
   .slide {
     position: absolute;
     inset: 0;
@@ -279,16 +284,18 @@
     flex-direction: column;
     justify-content: center;
     padding: 110px 148px 110px 48px;
+    background: var(--bg);
+    background-image: radial-gradient(circle, var(--dot) 1px, transparent 1px);
+    background-size: 20px 20px;
     opacity: 0;
-    transform: translateY(32px);
     pointer-events: none;
-    transition: opacity var(--dur) var(--ease-out-expo), transform var(--dur) var(--ease-out-expo);
+    transition: background-color 500ms;
   }
-  .slide.active   { opacity: 1; transform: translateY(0); pointer-events: auto; }
-  .slide.exit-up  { transform: translateY(-32px); }
+  .slide.active   { opacity: 1; pointer-events: auto; animation: slideIn var(--dur) var(--ease-out-expo) forwards; }
+  .slide.exit-up  { }
 
   .kicker {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'PingFang SC', 'PingFang TC', sans-serif;
     font-size: 11px;
     letter-spacing: 0.20em;
     text-transform: uppercase;
@@ -350,7 +357,7 @@
 
   /* ====== slide 1 — cover ====== */
   .s1 h1 {
-    font-family: 'PPEditorialNew', Georgia, serif;
+    font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif;
     font-weight: 200;
     font-size: clamp(56px, 8.5vw, 120px);
     line-height: 0.97;
@@ -378,12 +385,12 @@
   }
   .type-row:first-child { border-top: 1px solid var(--line); }
   .type-row .sample { font-size: clamp(32px, 4.5vw, 60px); line-height: 1; }
-  .type-row .sample.serif-light { font-family: 'PPEditorialNew', Georgia, serif; font-weight: 200; }
-  .type-row .sample.serif-bold  { font-family: 'PPEditorialNew', Georgia, serif; font-weight: 700; font-style: italic; }
+  .type-row .sample.serif-light { font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif; font-weight: 200; }
+  .type-row .sample.serif-bold  { font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif; font-weight: 700; font-style: italic; }
   .type-row .sample.picnic-samp { font-family: 'PicNic', monospace; font-weight: 400; }
-  .type-row .sample.sans        { font-family: 'Inter', sans-serif; font-weight: 500; letter-spacing: -0.02em; }
+  .type-row .sample.sans        { font-family: 'Inter', 'PingFang SC', 'PingFang TC', sans-serif; font-weight: 500; letter-spacing: -0.02em; }
   .type-row .label {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'PingFang SC', 'PingFang TC', sans-serif;
     font-size: 11px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -394,7 +401,7 @@
 
   /* ====== slide 3 — quote ====== */
   .s3 blockquote {
-    font-family: 'PPEditorialNew', Georgia, serif;
+    font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif;
     font-weight: 200;
     font-style: italic;
     font-size: clamp(32px, 5vw, 68px);
@@ -407,7 +414,7 @@
   }
   .s3 .footline {
     margin-top: 44px;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'PingFang SC', 'PingFang TC', sans-serif;
     font-size: 12px;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -416,7 +423,7 @@
 
   /* ====== slide 4 — grid / key points ====== */
   .s4 h2 {
-    font-family: 'PPEditorialNew', Georgia, serif;
+    font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif;
     font-weight: 200;
     font-size: clamp(32px, 4vw, 56px);
     line-height: 1.05;
@@ -436,18 +443,18 @@
     transition: background 500ms var(--ease-in-out);
   }
   .cell .num {
-    font-family: 'PPEditorialNew', Georgia, serif;
+    font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif;
     font-style: italic;
     font-size: 14px;
     color: var(--accent);
   }
-  .cell h3 { margin-top: 16px; font-family: 'PPEditorialNew', Georgia, serif; font-size: 18px; font-weight: 400; }
+  .cell h3 { margin-top: 16px; font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif; font-size: 18px; font-weight: 400; }
   .cell p  { margin-top: 10px; font-size: 13px; line-height: 1.68; color: var(--fg-dim); }
 
   /* ====== closing ====== */
   .s-closing, .s5 { align-items: flex-start; }
   .s-closing h1, .s5 h1 {
-    font-family: 'PPEditorialNew', Georgia, serif;
+    font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif;
     font-weight: 200;
     font-size: clamp(52px, 7.5vw, 108px);
     line-height: 1;
@@ -466,7 +473,7 @@
   [data-theme="dark"] .s-chapter  { background: var(--fg);     color: var(--bg); }
   [data-theme="light"] .s-chapter { background: var(--fg);     color: var(--bg); }
   .s-chapter h1 {
-    font-family: 'PPEditorialNew', Georgia, serif;
+    font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif;
     font-weight: 200;
     font-size: clamp(48px, 7vw, 100px);
     line-height: 1;
@@ -476,7 +483,7 @@
   .s-chapter .kicker { color: rgba(0,0,0,0.45); }
   .s-chapter .kicker::before { background: var(--accent); }
   .chapter-num {
-    font-family: 'PPEditorialNew', Georgia, serif;
+    font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif;
     font-size: clamp(80px, 14vw, 200px);
     font-weight: 200;
     line-height: 1;
@@ -488,7 +495,7 @@
   }
   .chapter-desc {
     margin-top: 20px;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'PingFang SC', 'PingFang TC', sans-serif;
     font-size: 15px;
     color: rgba(0,0,0,0.50);
     max-width: 480px;
@@ -497,7 +504,7 @@
 
   /* ====== bullet / key points ====== */
   .s-bullet h2 {
-    font-family: 'PPEditorialNew', Georgia, serif;
+    font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif;
     font-weight: 200;
     font-size: clamp(28px, 3.5vw, 52px);
     line-height: 1.1;
@@ -508,7 +515,7 @@
     display: flex;
     gap: 16px;
     align-items: baseline;
-    font-family: 'PPEditorialNew', Georgia, serif;
+    font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif;
     font-size: clamp(16px, 1.9vw, 26px);
     font-weight: 200;
     line-height: 1.35;
@@ -546,7 +553,7 @@
     border-right: 1px solid var(--line);
   }
   .split-num {
-    font-family: 'PPEditorialNew', Georgia, serif;
+    font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif;
     font-weight: 200;
     font-size: clamp(80px, 10vw, 140px);
     color: var(--fg);
@@ -562,7 +569,7 @@
     justify-content: center;
   }
   .split-text h2 {
-    font-family: 'PPEditorialNew', Georgia, serif;
+    font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif;
     font-weight: 200;
     font-size: clamp(26px, 3vw, 44px);
     line-height: 1.15;
@@ -572,7 +579,7 @@
 
   /* ====== comparison (A vs B) ====== */
   .s-comparison h2 {
-    font-family: 'PPEditorialNew', Georgia, serif;
+    font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif;
     font-weight: 200;
     font-size: clamp(24px, 2.8vw, 42px);
     line-height: 1.1;
@@ -589,7 +596,7 @@
     align-self: stretch;
   }
   .compare-label {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'PingFang SC', 'PingFang TC', sans-serif;
     font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
@@ -598,7 +605,7 @@
     margin-bottom: 14px;
   }
   .compare-body {
-    font-family: 'PPEditorialNew', Georgia, serif;
+    font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif;
     font-size: clamp(15px, 1.6vw, 22px);
     font-weight: 200;
     line-height: 1.55;
@@ -607,7 +614,7 @@
 
   /* ====== timeline ====== */
   .s-timeline h2 {
-    font-family: 'PPEditorialNew', Georgia, serif;
+    font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif;
     font-weight: 200;
     font-size: clamp(24px, 2.8vw, 42px);
     margin-bottom: 36px;
@@ -652,7 +659,7 @@
     margin-bottom: 8px;
   }
   .tl-item h3 {
-    font-family: 'PPEditorialNew', Georgia, serif;
+    font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif;
     font-size: clamp(14px, 1.4vw, 20px);
     font-weight: 400;
     line-height: 1.25;
@@ -667,7 +674,7 @@
 
   /* ====== stats (big numbers) ====== */
   .s-stats h2 {
-    font-family: 'PPEditorialNew', Georgia, serif;
+    font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif;
     font-weight: 200;
     font-size: clamp(22px, 2.5vw, 38px);
     margin-bottom: 48px;
@@ -685,7 +692,7 @@
   }
   .stat-card:last-child { border-right: 0; margin-right: 0; padding-right: 0; }
   .stat-value {
-    font-family: 'PPEditorialNew', Georgia, serif;
+    font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif;
     font-weight: 200;
     font-size: clamp(56px, 8vw, 112px);
     line-height: 0.95;
@@ -694,7 +701,7 @@
   }
   .stat-value em { font-style: normal; color: var(--accent); }
   .stat-label {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'PingFang SC', 'PingFang TC', sans-serif;
     font-size: 13px;
     font-weight: 500;
     color: var(--fg);
@@ -711,7 +718,7 @@
 
   /* ====== table ====== */
   .s-table h2 {
-    font-family: 'PPEditorialNew', Georgia, serif;
+    font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif;
     font-weight: 200;
     font-size: clamp(22px, 2.5vw, 38px);
     margin-bottom: 28px;
@@ -719,7 +726,7 @@
   .data-table {
     width: 100%;
     border-collapse: collapse;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'PingFang SC', 'PingFang TC', sans-serif;
     font-size: 13px;
   }
   .data-table thead tr { border-bottom: 1px solid var(--fg-faint); }
@@ -765,7 +772,7 @@
   }
   .s-fullbleed .kicker { color: rgba(255,255,255,0.65); }
   .s-fullbleed h1 {
-    font-family: 'PPEditorialNew', Georgia, serif;
+    font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif;
     font-weight: 200;
     font-size: clamp(48px, 7vw, 100px);
     line-height: 1;
@@ -783,16 +790,17 @@
     background: transparent;
     font-weight: 500;
   }
-  mark.c-red    { color: #d71921; background: rgba(215,25,33,0.10);    padding: 0 3px; }
-  mark.c-blue   { color: #3b82f6; background: rgba(59,130,246,0.12);   padding: 0 3px; }
-  mark.c-yellow { color: #ca8a04; background: rgba(234,179,8,0.15);    padding: 0 3px; }
-  mark.c-green  { color: #16a34a; background: rgba(22,163,74,0.12);    padding: 0 3px; }
-  mark.c-purple { color: #9333ea; background: rgba(147,51,234,0.12);   padding: 0 3px; }
-  /* Solid underline variant — more Nothing-style */
-  mark.u-red    { color: var(--fg); background: transparent; border-bottom: 2px solid #d71921;    padding-bottom: 1px; }
-  mark.u-blue   { color: var(--fg); background: transparent; border-bottom: 2px solid #3b82f6;    padding-bottom: 1px; }
-  mark.u-yellow { color: var(--fg); background: transparent; border-bottom: 2px solid #ca8a04;    padding-bottom: 1px; }
-  mark.u-green  { color: var(--fg); background: transparent; border-bottom: 2px solid #16a34a;    padding-bottom: 1px; }
+  /* Pudding-palette: orange #D05030 / purple #7058C0 / yellow-green #8CA028 */
+  mark.c-red    { color: #D05030; background: rgba(208,80,48,0.13);    padding: 0 4px; border-radius: 3px; }
+  mark.c-blue   { color: #7058C0; background: rgba(112,88,192,0.13);   padding: 0 4px; border-radius: 3px; }
+  mark.c-yellow { color: #6A8820; background: rgba(140,168,32,0.15);   padding: 0 4px; border-radius: 3px; }
+  mark.c-green  { color: #6A8820; background: rgba(140,168,32,0.15);   padding: 0 4px; border-radius: 3px; }
+  mark.c-purple { color: #7058C0; background: rgba(112,88,192,0.13);   padding: 0 4px; border-radius: 3px; }
+  /* Solid underline variant */
+  mark.u-red    { color: var(--fg); background: transparent; border-bottom: 2px solid #D05030; padding-bottom: 1px; }
+  mark.u-blue   { color: var(--fg); background: transparent; border-bottom: 2px solid #7058C0; padding-bottom: 1px; }
+  mark.u-yellow { color: var(--fg); background: transparent; border-bottom: 2px solid #8CA028; padding-bottom: 1px; }
+  mark.u-green  { color: var(--fg); background: transparent; border-bottom: 2px solid #8CA028; padding-bottom: 1px; }
 
   /* ---- Annotation layer (absolute-positioned over visuals) ---- */
   /* Wrap your image/visual in .anno-canvas, then place .anno-dot inside */
@@ -816,7 +824,7 @@
     border-radius: 50%;
     background: var(--accent);
     color: #fff;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'PingFang SC', 'PingFang TC', sans-serif;
     font-size: 10px;
     font-weight: 700;
     display: flex;
@@ -845,10 +853,11 @@
     transform: translateX(-50%) translateY(4px);
     background: var(--surface);
     border: 1px solid var(--line);
+    border-radius: 10px;
     padding: 10px 14px;
     min-width: 160px;
     max-width: 220px;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'PingFang SC', 'PingFang TC', sans-serif;
     font-size: 12px;
     line-height: 1.55;
     color: var(--fg);
@@ -891,10 +900,11 @@
     position: absolute;
     background: var(--surface);
     border: 1px solid var(--line);
-    border-left: 2px solid var(--accent);
+    border-left: 3px solid var(--accent);
+    border-radius: 10px;
     padding: 10px 14px;
     max-width: 200px;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'PingFang SC', 'PingFang TC', sans-serif;
     font-size: 12px;
     line-height: 1.55;
     color: var(--fg);
@@ -927,7 +937,7 @@
     margin-top: 16px;
   }
   .leg {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'PingFang SC', 'PingFang TC', sans-serif;
     font-size: 11px;
     font-weight: 500;
     letter-spacing: 0.08em;
@@ -943,11 +953,11 @@
     border-radius: 50%;
     flex-shrink: 0;
   }
-  .leg.c-red::before    { background: #d71921; }
-  .leg.c-blue::before   { background: #3b82f6; }
-  .leg.c-yellow::before { background: #ca8a04; }
-  .leg.c-green::before  { background: #16a34a; }
-  .leg.c-purple::before { background: #9333ea; }
+  .leg.c-red::before    { background: #D05030; }
+  .leg.c-blue::before   { background: #7058C0; }
+  .leg.c-yellow::before { background: #8CA028; }
+  .leg.c-green::before  { background: #8CA028; }
+  .leg.c-purple::before { background: #7058C0; }
 
   /* ---- Annotated slide layout ---- */
   .s-annotated {
@@ -988,7 +998,7 @@
     overflow-y: auto;
   }
   .anno-notes h2 {
-    font-family: 'PPEditorialNew', Georgia, serif;
+    font-family: 'PPEditorialNew', 'PingFang SC', Georgia, serif;
     font-weight: 200;
     font-size: clamp(20px, 2.2vw, 32px);
     line-height: 1.2;
@@ -1017,14 +1027,14 @@
     color: #fff;
     font-size: 10px;
     font-weight: 700;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'PingFang SC', 'PingFang TC', sans-serif;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 1px;
   }
   .anno-note-text {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', 'PingFang SC', 'PingFang TC', sans-serif;
     font-size: 13px;
     line-height: 1.65;
     color: var(--fg-dim);
