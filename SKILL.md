@@ -293,6 +293,114 @@ Note: If no image, use a CSS gradient as `--bg-image`: e.g. `linear-gradient(135
 
 ---
 
+## ASSET MANAGEMENT
+
+For decks with images or videos, use a **folder structure** instead of a single file:
+
+```
+yb-slide-topic/
+├── index.html        ← rename template.html to index.html
+└── assets/
+    ├── hero.jpg
+    ├── chart.png
+    └── demo.mp4
+```
+
+Reference with relative paths in HTML:
+```html
+<!-- Image in annotated panel -->
+<img src="assets/hero.jpg" alt="Hero">
+
+<!-- Video (autoplay, muted, looped) -->
+<video src="assets/demo.mp4" autoplay muted loop playsinline></video>
+```
+
+When the user provides image/video files, output a folder instead of a single `.html`. Tell them to open `index.html` inside the folder.
+
+---
+
+## INTERACTIVE COMPONENTS
+
+These components are pre-built in `references/template.html`. Use them inside any slide type.
+
+### Color mark highlights
+```html
+<!-- Background fill variants -->
+<mark class="c-red">term A</mark>
+<mark class="c-blue">term B</mark>
+<mark class="c-yellow">term C</mark>
+<mark class="c-green">term D</mark>
+
+<!-- Underline-only (more Nothing-style, no fill) -->
+<mark class="u-red">term</mark>
+<mark class="u-yellow">term</mark>
+```
+Use to categorize terms, distinguish concepts, or highlight data categories. ONE color = ONE category — don't mix colors arbitrarily.
+
+### Color legend strip
+```html
+<div class="legend">
+  <span class="leg c-red">Category A</span>
+  <span class="leg c-blue">Category B</span>
+  <span class="leg c-yellow">Category C</span>
+</div>
+```
+
+### Annotated slide (`.s-annotated`)
+Best for: product shots, diagrams, screenshots, charts with call-outs.
+```html
+<section class="slide s-annotated" data-num="[NN]" data-kicker="[label]" data-title="[title]">
+  <div class="anno-panel">
+    <div class="anno-canvas">
+      <img src="assets/photo.jpg" alt="[description]">
+      <!-- Numbered dots — position with left/top % -->
+      <div class="anno-dot" style="left:35%;top:40%">1
+        <div class="anno-tip">Tooltip text on hover.</div>
+      </div>
+      <div class="anno-dot tip-down" style="left:65%;top:25%">2
+        <div class="anno-tip">tip-down opens tooltip below the dot.</div>
+      </div>
+      <!-- Callout box — appears on slide entry -->
+      <div class="callout" style="left:6%;bottom:12%">
+        <div class="callout-label">Note</div>
+        Short label or observation
+      </div>
+    </div>
+  </div>
+  <div class="anno-notes">
+    <div class="kicker">[NN] — [Label]</div>
+    <h2>[Headline]</h2>
+    <div class="anno-note-item">
+      <div class="anno-note-num">1</div>
+      <div class="anno-note-text">Note with <mark class="c-red">color highlight</mark>.</div>
+    </div>
+    <!-- repeat -->
+    <div class="legend">
+      <span class="leg c-red">Category A</span>
+    </div>
+  </div>
+</section>
+```
+
+### Standalone callout box (any slide)
+```html
+<!-- Position absolute within the slide — add position:relative to parent if needed -->
+<div class="callout" style="right:48px;top:120px;">
+  <div class="callout-label">Key insight</div>
+  Short text — max 2 lines
+</div>
+```
+
+### Video embed
+```html
+<div class="video-wrap">
+  <video src="assets/demo.mp4" autoplay muted loop playsinline></video>
+</div>
+```
+Use inside `.anno-panel` for a video annotated layout, or as fullbleed background inside `.s-fullbleed`.
+
+---
+
 ## DESIGN RULES (condensed)
 
 Full rules in `references/design-rules.md`. Critical points:

@@ -772,6 +772,280 @@
     color: #fff;
   }
   .s-fullbleed .body { color: rgba(255,255,255,0.70); margin-top: 20px; font-size: 15px; line-height: 1.65; max-width: 480px; }
+
+  /* ============================================================
+     INTERACTIVE COMPONENTS
+     ============================================================ */
+
+  /* ---- Color mark highlights (inline text, pudding-style) ---- */
+  /* Usage: <mark class="c-red">term</mark>  */
+  mark {
+    background: transparent;
+    font-weight: 500;
+  }
+  mark.c-red    { color: #d71921; background: rgba(215,25,33,0.10);    padding: 0 3px; }
+  mark.c-blue   { color: #3b82f6; background: rgba(59,130,246,0.12);   padding: 0 3px; }
+  mark.c-yellow { color: #ca8a04; background: rgba(234,179,8,0.15);    padding: 0 3px; }
+  mark.c-green  { color: #16a34a; background: rgba(22,163,74,0.12);    padding: 0 3px; }
+  mark.c-purple { color: #9333ea; background: rgba(147,51,234,0.12);   padding: 0 3px; }
+  /* Solid underline variant — more Nothing-style */
+  mark.u-red    { color: var(--fg); background: transparent; border-bottom: 2px solid #d71921;    padding-bottom: 1px; }
+  mark.u-blue   { color: var(--fg); background: transparent; border-bottom: 2px solid #3b82f6;    padding-bottom: 1px; }
+  mark.u-yellow { color: var(--fg); background: transparent; border-bottom: 2px solid #ca8a04;    padding-bottom: 1px; }
+  mark.u-green  { color: var(--fg); background: transparent; border-bottom: 2px solid #16a34a;    padding-bottom: 1px; }
+
+  /* ---- Annotation layer (absolute-positioned over visuals) ---- */
+  /* Wrap your image/visual in .anno-canvas, then place .anno-dot inside */
+  .anno-canvas {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+  .anno-canvas img,
+  .anno-canvas video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .anno-dot {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+    z-index: 10;
+    transform: translate(-50%, -50%);
+    transition: transform 200ms var(--ease-out-expo);
+    /* ripple ring */
+    box-shadow: 0 0 0 0 rgba(215,25,33,0.4);
+    animation: dotPulse 2.5s ease-out infinite;
+  }
+  .anno-dot:hover { transform: translate(-50%, -50%) scale(1.15); }
+  @keyframes dotPulse {
+    0%   { box-shadow: 0 0 0 0 rgba(215,25,33,0.4); }
+    60%  { box-shadow: 0 0 0 10px rgba(215,25,33,0); }
+    100% { box-shadow: 0 0 0 0 rgba(215,25,33,0); }
+  }
+
+  /* Annotation tooltip bubble */
+  .anno-dot .anno-tip {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%) translateY(4px);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    padding: 10px 14px;
+    min-width: 160px;
+    max-width: 220px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    line-height: 1.55;
+    color: var(--fg);
+    font-weight: 400;
+    white-space: normal;
+    text-align: left;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 180ms ease, transform 180ms ease;
+    z-index: 20;
+  }
+  /* connector line */
+  .anno-dot .anno-tip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 10px;
+    background: var(--accent);
+  }
+  .anno-dot:hover .anno-tip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  /* Tip that opens downward */
+  .anno-dot.tip-down .anno-tip {
+    bottom: auto;
+    top: calc(100% + 10px);
+  }
+  .anno-dot.tip-down .anno-tip::after {
+    top: auto;
+    bottom: 100%;
+  }
+
+  /* ---- Callout box (floating label, Nothing style) ---- */
+  /* Usage: <div class="callout" style="left:55%; top:20%">Text</div> */
+  .callout {
+    position: absolute;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-left: 2px solid var(--accent);
+    padding: 10px 14px;
+    max-width: 200px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    line-height: 1.55;
+    color: var(--fg);
+    z-index: 10;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 500ms var(--ease-out-expo), transform 500ms var(--ease-out-expo);
+  }
+  .callout .callout-label {
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+  .slide.active .callout {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 400ms;
+  }
+
+  /* ---- Color legend strip (for categorized data) ---- */
+  /* Usage: <div class="legend"><span class="leg c-red">Category A</span>...</div> */
+  .legend {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+  .leg {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .leg::before {
+    content: "";
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .leg.c-red::before    { background: #d71921; }
+  .leg.c-blue::before   { background: #3b82f6; }
+  .leg.c-yellow::before { background: #ca8a04; }
+  .leg.c-green::before  { background: #16a34a; }
+  .leg.c-purple::before { background: #9333ea; }
+
+  /* ---- Annotated slide layout ---- */
+  .s-annotated {
+    flex-direction: row;
+    padding: 0;
+    gap: 0;
+    overflow: hidden;
+  }
+  .anno-panel {
+    flex: 0 0 58%;
+    position: relative;
+    background: var(--surface);
+    border-right: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .anno-panel .anno-canvas {
+    width: 100%;
+    height: 100%;
+  }
+  .anno-panel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  /* placeholder when no image */
+  .anno-panel.no-image {
+    background: var(--surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .anno-notes {
+    flex: 1;
+    padding: 64px 48px 64px 44px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: auto;
+  }
+  .anno-notes h2 {
+    font-family: 'PPEditorialNew', Georgia, serif;
+    font-weight: 200;
+    font-size: clamp(20px, 2.2vw, 32px);
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+  .anno-note-item {
+    display: flex;
+    gap: 14px;
+    margin-bottom: 18px;
+    align-items: flex-start;
+    opacity: 0;
+    transform: translateX(10px);
+    transition: opacity 400ms var(--ease-out-expo), transform 400ms var(--ease-out-expo);
+  }
+  .slide.active .anno-note-item                       { opacity: 1; transform: none; }
+  .slide.active .anno-note-item:nth-child(1)          { transition-delay: 180ms; }
+  .slide.active .anno-note-item:nth-child(2)          { transition-delay: 280ms; }
+  .slide.active .anno-note-item:nth-child(3)          { transition-delay: 380ms; }
+  .slide.active .anno-note-item:nth-child(4)          { transition-delay: 480ms; }
+  .anno-note-num {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+  .anno-note-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    line-height: 1.65;
+    color: var(--fg-dim);
+  }
+  .anno-note-text strong {
+    font-weight: 600;
+    color: var(--fg);
+  }
+
+  /* ---- Video embed ---- */
+  .video-wrap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  .video-wrap video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 </style>
 </head>
 <body>
@@ -859,13 +1133,61 @@
       </div>
     </section>
 
-    <section class="slide s5"
+    <!-- Annotated slide: image canvas with numbered dots + side notes panel -->
+    <section class="slide s-annotated"
       data-num="05"
+      data-kicker="Annotated"
+      data-title="Annotation dots + color highlights">
+      <div class="anno-panel no-image">
+        <div class="anno-canvas" style="width:100%;height:100%;position:relative;display:block;">
+          <div style="width:100%;height:100%;background:var(--surface);display:flex;align-items:center;justify-content:center;">
+            <span style="font-family:'PPEditorialNew',serif;font-size:clamp(36px,5vw,72px);font-weight:200;color:var(--fg-faint);text-align:center;line-height:1.2;">your<br><em style="color:var(--accent);">image</em><br>here</span>
+          </div>
+          <div class="anno-dot" style="left:30%;top:38%">1
+            <div class="anno-tip">Primary observation. Hover any dot to reveal its annotation.</div>
+          </div>
+          <div class="anno-dot" style="left:64%;top:56%">2
+            <div class="anno-tip">Secondary insight. Use <strong>strong</strong> for emphasis.</div>
+          </div>
+          <div class="anno-dot tip-down" style="left:72%;top:26%">3
+            <div class="anno-tip">Third point. Position with left/top % to any coordinate.</div>
+          </div>
+          <div class="callout" style="left:6%;bottom:12%">
+            <div class="callout-label">Tip</div>
+            Replace the grey area with &lt;img&gt; or &lt;video&gt;
+          </div>
+        </div>
+      </div>
+      <div class="anno-notes">
+        <div class="kicker" style="margin-bottom:20px;">05 &mdash; Annotated</div>
+        <h2>Annotation dots +<br>color highlights</h2>
+        <div class="anno-note-item">
+          <div class="anno-note-num">1</div>
+          <div class="anno-note-text">Inline <mark class="c-red">red mark</mark> and <mark class="c-blue">blue mark</mark> for categorizing terms in body text.</div>
+        </div>
+        <div class="anno-note-item">
+          <div class="anno-note-num">2</div>
+          <div class="anno-note-text"><mark class="u-yellow">Underline variants</mark> give a cleaner Nothing-style highlight without background fill.</div>
+        </div>
+        <div class="anno-note-item">
+          <div class="anno-note-num">3</div>
+          <div class="anno-note-text"><strong>Dots pulse + reveal</strong> tooltip on hover. Callout boxes appear on slide entry with a red left border.</div>
+        </div>
+        <div class="legend">
+          <span class="leg c-red">Category A</span>
+          <span class="leg c-blue">Category B</span>
+          <span class="leg c-yellow">Category C</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="slide s-closing"
+      data-num="06"
       data-kicker="Colophon"
       data-title="Thanks for browsing.">
-      <div class="kicker">04 &mdash; Colophon</div>
+      <div class="kicker">06 &mdash; Colophon</div>
       <h1>Thanks for <em>browsing</em>.</h1>
-      <p class="body">Set in PPEditorialNew, PicNic, and Inter. Built as a single HTML file — no frameworks, no build step. <a href="mailto:yuebinzhang77@gmail.com">yuebinzhang77@gmail.com</a></p>
+      <p class="body">Set in PPEditorialNew, PicNic, and Inter. Single HTML file — no frameworks, no build step. <a href="mailto:yuebinzhang77@gmail.com">yuebinzhang77@gmail.com</a></p>
     </section>
 
   </main>
